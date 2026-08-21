@@ -181,12 +181,19 @@ body.cover-locked {
   border-radius: 12px;
 }
 
-/* Monogram Frame (Photo-less Profile Ornament) */
+/* Monogram Frame (Photo-less Profile Ornament)
+   NOTE: width/height/centering are hard-coded here (not left to Tailwind's
+   w-32/h-32/mx-auto utilities) because Tailwind loads from a runtime CDN
+   script. If that CDN is slow/blocked, utility classes silently never
+   apply - this element still needs to render correctly on its own. */
 .monogram-frame {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 8rem;
+  height: 8rem;
+  margin: 0 auto 1.5rem;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #ecfdf5, #ffffff);
   border: 2px solid rgba(217, 119, 6, 0.35);
