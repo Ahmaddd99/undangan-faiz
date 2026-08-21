@@ -185,80 +185,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------------
-  // 7. BUKU TAMU / LIVE RSVP ENGINE
+  // 7. BUKU TAMU / LIVE RSVP ENGINE (shared lewat Google Sheets)
   // ------------------------------------------------------------------------
-  const defaultRSVPs = [
-    {
-      id: 1,
-      name: "Salman M. Ichsan",
-      status: "Hadir",
-      guests: "2 Persons",
-      message: "Gebleg jadi oge ning jeng, meni sat set.",
-      date: "2 jam yang lalu"
-    },
-    {
-      id: 2,
-      name: "M. Akbar Mubarok",
-      status: "Hadir",
-      guests: "2 Persons",
-      message: "Barakallahu lakuma wa baraka 'alaikuma wa jama'a bainakuma fii khair. Akhirnya sahabatku!",
-      date: "5 jam yang lalu"
-    },
-    {
-      id: 3,
-      name: "Dhani",
-      status: "Ragu-ragu",
-      guests: "1 Person",
-      message: "Beuhh mantepp! Insya Allah datang kalo dikasih jadwal cuti sama si diko hehe.",
-      date: "1 hari yang lalu"
-    },
-    {
-      id: 4,
-      name: "Latief",
-      status: "Hadir",
-      guests: "1 Person",
-      message: "Alhamdulillahhhh setelah penantian panjang, jadi inget ngopi sambil bimbang mikirin calon wkwkkw.",
-      date: "2 hari yang lalu"
-    },
-    {
-      id: 5,
-      name: "M. Akmal Mubarok",
-      status: "Hadir",
-      guests: "1 Person",
-      message: "Eh ulah tanggal sakitu atuh urang can balik. undur bisa teu jeng?.",
-      date: "3 hari yang lalu"
-    },
-    {
-      id: 6,
-      name: "Raiza",
-      status: "Hadir",
-      guests: "1 Person",
-      message: "Mejeuhna jadi imam di masjid.",
-      date: "7 hari yang lalu"
-    }
-  ];
+  // Ucapan tamu disimpan di satu Google Sheet lewat Apps Script Web App,
+  // supaya SEMUA pengunjung undangan melihat daftar yang sama - bukan cuma
+  // tersimpan di browser masing-masing (localStorage tidak dipakai lagi
+  // untuk ini). Panduan setup ada di assets/docs/guestbook-apps-script.gs.
+  //
+  // >>> GANTI URL DI BAWAH INI dengan Web App URL hasil deploy kamu <<<
+  const RSVP_API_URL = 'https://script.google.com/macros/s/AKfycby0sr4mtsO82ktnJuCvdErsgbDLtNL3FuXDnC9bsDmk6j9YuMjeaUZ72qvszvq4A1ba9w/exec';
 
-  function getStoredRSVPs() {
-    const stored = localStorage.getItem('wedding_rsvp_list');
-    if (!stored) {
-      localStorage.setItem('wedding_rsvp_list', JSON.stringify(defaultRSVPs));
-      return defaultRSVPs;
-    }
-    return JSON.parse(stored);
+  function isRsvpApiConfigured() {
+    return !!RSVP_API_URL && RSVP_API_URL.indexOf('PASTE_') === -1;
   }
 
-  function renderRSVPMessages() {
+  // Ucapan bawaan/default TIDAK di-hardcode di sini lagi - semuanya (baik
+  // ucapan contoh maupun ucapan asli tamu) hidup di satu Google Sheet yang
+  // sama, jadi bisa dikelola/diedit langsung dari Sheet tanpa sentuh kode.
+  // Cara mengisi ucapan bawaan pertama kali: lihat seedDefaults() di
+  // assets/docs/guestbook-apps-script.gs.
+  let remoteRSVPs = [];
+
+  function timeAgo(id) {
+    const ts = Number(id);
+    if (!ts || isNaN(ts)) return 'Baru saja';
+    const diffSec = Math.floor((Date.now() - ts) / 1000);
+    if (diffSec < 60) return 'Baru saja';
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return `${diffMin} menit yang lalu`;
+    const diffHour = Math.floor(diffMin / 60);
+    if (diffHour < 24) return `${diffHour} jam yang lalu`;
+    const diffDay = Math.floor(diffHour / 24);
+    return `${diffDay} hari yang lalu`;
+  }
+
+  async function fetchRemoteRSVPs() {
+    if (!isRsvpApiConfigured()) {
+      return { ok: false, reason: 'not_configured', data: [] };
+    }
+    try {
+      const res = await fetch(RSVP_API_URL, { method: 'GET' });
+      const json = await res.json();
+      if (json && json.ok && Array.isArray(json.data)) {
+        return { ok: true, data: json.data };
+      }
+      throw new Error((json && json.error) || 'Format respons tidak dikenali.');
+    } catch (err) {
+      console.warn('Gagal memuat ucapan dari server:', err);
+      return { ok: false, reason: 'error', data: [] };
+    }
+  }
+
+  function renderRSVPWallMessage(text) {
+    const rsvpWall = document.getElementById('rsvp-wall');
+    const rsvpCount = document.getElementById('rsvp-count');
+    if (rsvpWall) {
+      rsvpWall.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">${escapeHtml(text)}</p>`;
+    }
+    if (rsvpCount) rsvpCount.textContent = '0 Ucapan';
+  }
+
+  function renderRSVPMessages(list) {
     const rsvpWall = document.getElementById('rsvp-wall');
     const rsvpCount = document.getElementById('rsvp-count');
     if (!rsvpWall) return;
 
-    const list = getStoredRSVPs();
     if (rsvpCount) rsvpCount.textContent = `${list.length} Ucapan`;
 
     rsvpWall.innerHTML = list.map(item => {
       let badgeBg = "bg-emerald-100 text-emerald-800 border-emerald-300";
       if (item.status === "Ragu-ragu") badgeBg = "bg-amber-100 text-amber-800 border-amber-300";
       if (item.status === "Tidak Hadir") badgeBg = "bg-rose-100 text-rose-800 border-rose-300";
+
+      const dateLabel = item.date || timeAgo(item.id);
 
       return `
         <div class="glass-card p-5 rounded-2xl border border-amber-400/20 shadow-sm transition hover:shadow-md">
@@ -271,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="text-xs text-slate-600 leading-relaxed mb-3">${escapeHtml(item.message)}</p>
           <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-100 pt-2">
             <span><i data-lucide="users" class="w-3 h-3 inline mr-1"></i>${escapeHtml(item.guests || '1 Person')}</span>
-            <span>${escapeHtml(item.date || 'Baru saja')}</span>
+            <span>${escapeHtml(dateLabel)}</span>
           </div>
         </div>
       `;
@@ -280,16 +279,42 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
+  async function loadAndRenderRSVPs() {
+    if (isRsvpApiConfigured()) {
+      renderRSVPWallMessage('Memuat ucapan...');
+    }
+
+    const result = await fetchRemoteRSVPs();
+    remoteRSVPs = result.data;
+
+    if (!result.ok) {
+      const msg = result.reason === 'not_configured'
+        ? 'Buku tamu online belum aktif.'
+        : 'Gagal memuat ucapan. Coba refresh halaman ya.';
+      renderRSVPWallMessage(msg);
+      return;
+    }
+
+    if (remoteRSVPs.length === 0) {
+      renderRSVPWallMessage('Jadilah yang pertama memberi ucapan & doa!');
+      return;
+    }
+
+    renderRSVPMessages(remoteRSVPs);
+  }
+
   function escapeHtml(text) {
     if (!text) return '';
     return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
   }
 
   const rsvpForm = document.getElementById('rsvp-form');
+  const rsvpSubmitBtn = rsvpForm ? rsvpForm.querySelector('button[type="submit"]') : null;
+
   if (rsvpForm) {
-    rsvpForm.addEventListener('submit', (e) => {
+    rsvpForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const name = document.getElementById('rsvp-name').value.trim();
       const status = document.getElementById('rsvp-status').value;
       const guests = document.getElementById('rsvp-guests').value;
@@ -300,22 +325,46 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const newRSVP = {
-        id: Date.now(),
-        name: name,
-        status: status,
-        guests: guests,
-        message: message,
-        date: 'Baru saja'
-      };
+      if (!isRsvpApiConfigured()) {
+        showToast('Buku tamu online belum aktif. Silakan kirim via WhatsApp ya!');
+        return;
+      }
 
-      const currentList = getStoredRSVPs();
-      currentList.unshift(newRSVP);
-      localStorage.setItem('wedding_rsvp_list', JSON.stringify(currentList));
+      const originalBtnHtml = rsvpSubmitBtn ? rsvpSubmitBtn.innerHTML : '';
+      if (rsvpSubmitBtn) {
+        rsvpSubmitBtn.disabled = true;
+        rsvpSubmitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        rsvpSubmitBtn.innerHTML = '<span>Mengirim...</span>';
+      }
 
-      renderRSVPMessages();
-      rsvpForm.reset();
-      showToast('Terima kasih! Ucapan Anda telah disimpan.');
+      try {
+        const res = await fetch(RSVP_API_URL, {
+          method: 'POST',
+          // text/plain menghindari CORS preflight yang tidak didukung Apps Script.
+          // Isinya tetap JSON - dibaca manual lewat e.postData.contents di server.
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ name, status, guests, message })
+        });
+        const json = await res.json();
+
+        if (!json || !json.ok) {
+          throw new Error((json && json.error) || 'Gagal mengirim ucapan.');
+        }
+
+        remoteRSVPs.unshift({ id: json.id || Date.now(), name, status, guests, message });
+        renderRSVPMessages(remoteRSVPs);
+        rsvpForm.reset();
+        showToast('Terima kasih! Ucapan Anda telah disimpan.');
+      } catch (err) {
+        console.warn('Gagal mengirim ucapan ke server:', err);
+        showToast('Gagal mengirim. Coba lagi atau pakai tombol WhatsApp ya.');
+      } finally {
+        if (rsvpSubmitBtn) {
+          rsvpSubmitBtn.disabled = false;
+          rsvpSubmitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+          rsvpSubmitBtn.innerHTML = originalBtnHtml;
+        }
+      }
     });
   }
 
@@ -335,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  renderRSVPMessages();
+  loadAndRenderRSVPs();
 
 
   // ------------------------------------------------------------------------
