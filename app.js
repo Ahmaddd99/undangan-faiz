@@ -190,27 +190,51 @@ document.addEventListener('DOMContentLoaded', () => {
   const defaultRSVPs = [
     {
       id: 1,
-      name: "Drs. H. Bambang & Keluarga",
+      name: "Salman M. Ichsan",
       status: "Hadir",
       guests: "2 Persons",
-      message: "Selamat atas pernikahan Faiz & Fatimah. Semoga menjadi keluarga sakinah, mawaddah, warahmah. Aamiin yaa robbal aalamin.",
+      message: "Gebleg jadi oge ning jeng, meni sat set.",
       date: "2 jam yang lalu"
     },
     {
       id: 2,
-      name: "Dr. Farah & Suami",
+      name: "M. Akbar Mubarok",
       status: "Hadir",
       guests: "2 Persons",
-      message: "Barakallahu lakuma wa baraka 'alaikuma wa jama'a bainakuma fii khair. Selamat berbahagia sahabatku!",
+      message: "Barakallahu lakuma wa baraka 'alaikuma wa jama'a bainakuma fii khair. Akhirnya sahabatku!",
       date: "5 jam yang lalu"
     },
     {
       id: 3,
-      name: "Dimas Anggara",
+      name: "Dhani",
       status: "Ragu-ragu",
       guests: "1 Person",
-      message: "Selamat ya Bro Faiz & Fatimah! Insya Allah jika tidak ada kendala tugas luar kota saya hadir.",
+      message: "Beuhh mantepp! Insya Allah datang kalo dikasih jadwal cuti sama si diko hehe.",
       date: "1 hari yang lalu"
+    },
+    {
+      id: 4,
+      name: "Latief",
+      status: "Hadir",
+      guests: "1 Person",
+      message: "Alhamdulillahhhh setelah penantian panjang, jadi inget ngopi sambil bimbang mikirin calon wkwkkw.",
+      date: "2 hari yang lalu"
+    },
+    {
+      id: 5,
+      name: "M. Akmal Mubarok",
+      status: "Hadir",
+      guests: "1 Person",
+      message: "Eh ulah tanggal sakitu atuh urang can balik. undur bisa teu jeng?.",
+      date: "3 hari yang lalu"
+    },
+    {
+      id: 6,
+      name: "Raiza",
+      status: "Hadir",
+      guests: "1 Person",
+      message: "Mejeuhna jadi imam di masjid.",
+      date: "7 hari yang lalu"
     }
   ];
 
