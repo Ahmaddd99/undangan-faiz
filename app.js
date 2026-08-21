@@ -35,9 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // ------------------------------------------------------------------------
   const openingCover = document.getElementById('opening-cover');
   const btnOpenInvitation = document.getElementById('btn-open-invitation');
-  const bgAudio = document.getElementById('bg-audio');
-  const vinylIcon = document.getElementById('vinyl-icon');
-  let isPlayingAudio = false;
 
   if (btnOpenInvitation && openingCover) {
     btnOpenInvitation.addEventListener('click', () => {
@@ -45,10 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       openingCover.classList.add('opened');
       document.body.classList.remove('cover-locked');
 
-      // 2. Play Audio with Autoplay Restriction Fallback
-      playAudio();
-
-      // 3. Refresh AOS Animations
+      // 2. Refresh AOS Animations
       setTimeout(() => {
         if (typeof AOS !== 'undefined') {
           AOS.refresh();
@@ -59,42 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------------
-  // 3. BACKGROUND MUSIC PLAYER CONTROLLER
-  // ------------------------------------------------------------------------
-  const btnMusicToggle = document.getElementById('btn-music-toggle');
-
-  function playAudio() {
-    if (!bgAudio) return;
-    bgAudio.play().then(() => {
-      isPlayingAudio = true;
-      if (vinylIcon) vinylIcon.classList.remove('paused-vinyl');
-    }).catch(err => {
-      console.warn('Autoplay restricted by browser policy:', err);
-      isPlayingAudio = false;
-      if (vinylIcon) vinylIcon.classList.add('paused-vinyl');
-    });
-  }
-
-  function pauseAudio() {
-    if (!bgAudio) return;
-    bgAudio.pause();
-    isPlayingAudio = false;
-    if (vinylIcon) vinylIcon.classList.add('paused-vinyl');
-  }
-
-  if (btnMusicToggle) {
-    btnMusicToggle.addEventListener('click', () => {
-      if (isPlayingAudio) {
-        pauseAudio();
-      } else {
-        playAudio();
-      }
-    });
-  }
-
-
-  // ------------------------------------------------------------------------
-  // 4. COUNTDOWN TIMER
+  // 3. COUNTDOWN TIMER
   // ------------------------------------------------------------------------
   // Target Wedding Date: September 4, 2026 08:00:00
   const weddingDate = new Date('2026-09-04T08:00:00+07:00').getTime();
@@ -132,13 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------------
-  // 5. GOOGLE CALENDAR LINK GENERATOR
+  // 4. GOOGLE CALENDAR LINK GENERATOR
   // ------------------------------------------------------------------------
   function setupCalendarButtons() {
     const akadBtn = document.getElementById('btn-cal-akad');
     const resepsiBtn = document.getElementById('btn-cal-resepsi');
 
-    const akadUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Akad+Nikah+Faiz+%26+Fatimah&dates=20260905T020000Z/20260905T050000Z&details=Akad+Nikah+Muhammad+Faiz+Nur+Furqoni+%26+Siti+Fatimatuzzahro&location=Jl.+Tapos+LBC+RT01/02+No.71+Citapen,+Ciawi,+Kab.+Bogor";
+    const akadUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Akad+Nikah+Faiz+%26+Fatimah&dates=20260905T020000Z/20260905T050000Z&details=Akad+Nikah+Muhammad+Faiz+Nur+Furqoni+%26+Siti+Fatimatuzzahro&location=Masjid+Al+Ahyar+Palasari,+Kec.+Cijeruk,+Kabupaten+Bogor,+Jawa+Barat+16740";
     const resepsiUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Resepsi+Pernikahan+Faiz+%26+Fatimah&dates=20260904T010000Z/20260904T040000Z&details=Resepsi+Pernikahan+Muhammad+Faiz+Nur+Furqoni+%26+Siti+Fatimatuzzahro&location=Majlis+Ibnu+Mukhtari+Kp+Pondok+menteng,+Jl.+Tapos+LBC+RT01/02+No.71+Citapen,+Ciawi,+Kab.+Bogor";
 
     if (akadBtn) akadBtn.href = akadUrl;
@@ -148,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------------
-  // 6. CLIPBOARD COPY & TOAST SYSTEM
+  // 5. CLIPBOARD COPY & TOAST SYSTEM
   // ------------------------------------------------------------------------
   window.copyToClipboard = function(text, label = 'Teks') {
     if (navigator.clipboard && window.isSecureContext) {
@@ -194,13 +153,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------------
-  // 7. LIGHTBOX MODAL FOR GALLERY
+  // 6. LIGHTBOX MODAL (QR CODE VIEWER)
   // ------------------------------------------------------------------------
-  window.openLightbox = function(imgSrc) {
+  window.openLightbox = function(imgSrc, caption) {
     const modal = document.getElementById('lightbox-modal');
     const modalImg = document.getElementById('lightbox-img');
+    const modalCaption = document.getElementById('lightbox-caption');
     if (modal && modalImg) {
       modalImg.src = imgSrc;
+      if (modalCaption) {
+        if (caption) {
+          modalCaption.textContent = caption;
+          modalCaption.classList.remove('hidden');
+        } else {
+          modalCaption.textContent = '';
+          modalCaption.classList.add('hidden');
+        }
+      }
       modal.classList.remove('hidden');
       modal.classList.add('flex');
     }
@@ -216,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------------
-  // 8. BUKU TAMU / LIVE RSVP ENGINE
+  // 7. BUKU TAMU / LIVE RSVP ENGINE
   // ------------------------------------------------------------------------
   const defaultRSVPs = [
     {
@@ -346,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------------
-  // 9. HOST HELPER: GUEST LINK GENERATOR MODAL & ADMIN MODE
+  // 8. HOST HELPER: GUEST LINK GENERATOR MODAL & ADMIN MODE
   // ------------------------------------------------------------------------
   const generatorModal = document.getElementById('generator-modal');
   const btnOpenGenerator = document.getElementById('btn-open-generator');
@@ -451,7 +420,7 @@ Wassalamu'alaikum Wr. Wb.`;
 
 
   // ------------------------------------------------------------------------
-  // 10. INITIALIZE LIBRARIES (LUCIDE & AOS)
+  // 9. INITIALIZE LIBRARIES (LUCIDE & AOS)
   // ------------------------------------------------------------------------
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();

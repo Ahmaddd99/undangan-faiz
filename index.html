@@ -13,7 +13,7 @@
         <meta
             property="og:description"
             content="Tanpa Mengurangi Rasa Hormat, Kami Mengundang Anda Untuk Hadir Di Acara Pernikahan Kami." />
-        <meta property="og:image" content="assets/images/hero_couple.png" />
+        <meta property="og:image" content="assets/images/hero_batik_pattern.png" />
 
         <title>The Wedding of Faiz & Fatimah</title>
 
@@ -128,35 +128,15 @@
         </div>
 
         <!-- ==========================================
-       2. BACKGROUND MUSIC & FLOATING CONTROLS
+       2. FLOATING CONTROLS (ADMIN LINK GENERATOR)
        ========================================== -->
-        <audio id="bg-audio" loop preload="auto">
-            <!-- Romantic Wedding Background Audio Source -->
-            <source
-                src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"
-                type="audio/mpeg" />
-            Browser Anda tidak mendukung elemen audio.
-        </audio>
-
-        <div class="floating-audio-btn flex flex-col gap-3 items-end">
+        <div class="floating-action-btn flex flex-col gap-3 items-end">
             <!-- Link Generator Quick Trigger (Only shown if ?admin=true parameter is present) -->
             <button
                 id="btn-open-generator"
                 title="Buat Link Tamu (Admin Generator)"
                 class="hidden w-12 h-12 bg-emerald-900/90 text-amber-300 border border-amber-400/40 rounded-full shadow-xl flex items-center justify-center backdrop-blur hover:bg-emerald-800 transition">
                 <i data-lucide="link" class="w-5 h-5"></i>
-            </button>
-
-            <!-- Music Toggle Button -->
-            <button
-                id="btn-music-toggle"
-                title="Putar/Hentikan Musik"
-                class="w-12 h-12 bg-amber-500 text-emerald-950 border-2 border-amber-300 rounded-full shadow-xl flex items-center justify-center transition group">
-                <div
-                    id="vinyl-icon"
-                    class="w-6 h-6 flex items-center justify-center spin-vinyl paused-vinyl">
-                    <i data-lucide="disc" class="w-6 h-6 text-emerald-950"></i>
-                </div>
             </button>
         </div>
 
@@ -170,11 +150,11 @@
                 class="relative min-h-screen flex items-center justify-center py-20 px-4">
                 <div class="absolute inset-0 z-0">
                     <img
-                        src="assets/images/hero_couple.png"
-                        alt="Faiz & Fatimah Wedding"
-                        class="w-full h-full object-cover object-center filter brightness-[0.55] scale-105 transform" />
+                        src="assets/images/hero_batik_pattern.png"
+                        alt="Motif Ukiran Batik Emas - Dekorasi Pernikahan"
+                        class="w-full h-full object-cover object-center filter brightness-[0.5] contrast-110 scale-105 transform" />
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-transparent to-emerald-950/60"></div>
+                        class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/50 to-emerald-950/70"></div>
                 </div>
 
                 <div class="relative z-10 max-w-3xl mx-auto text-center text-white px-4">
@@ -323,11 +303,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
                     <!-- GROOM CARD -->
                     <div class="glass-card p-8 rounded-3xl text-center" data-aos="fade-right">
-                        <div class="luxury-image-frame w-48 h-48 mx-auto mb-6">
-                            <img
-                                src="assets/images/groom_profile.png"
-                                alt="Muhammad Faiz Nur Furqoni"
-                                class="w-full h-full object-cover rounded-xl" />
+                        <div class="monogram-frame w-32 h-32 mx-auto mb-6">
+                            <i data-lucide="flower-2" class="w-10 h-10 text-amber-500"></i>
                         </div>
                         <h3 class="font-serif-title text-2xl font-bold text-emerald-950">
                             Muhammad Faiz Nur Furqoni
@@ -341,7 +318,9 @@
                         <p class="text-xs text-slate-600 leading-relaxed mb-6">
                             Putra dari
                             <br />
-                            <span class="font-semibold text-slate-800">Bpk. H.M Pendi</span>
+                            <span class="font-semibold text-slate-800">
+                                Bpk. (Alm.) KH. Pendi
+                            </span>
                             &amp;
                             <span class="font-semibold text-slate-800">Ibu Siti Atinah</span>
                         </p>
@@ -357,11 +336,8 @@
 
                     <!-- BRIDE CARD -->
                     <div class="glass-card p-8 rounded-3xl text-center" data-aos="fade-left">
-                        <div class="luxury-image-frame w-48 h-48 mx-auto mb-6">
-                            <img
-                                src="assets/images/bride_profile.png"
-                                alt="Siti Fatimatuzzahro"
-                                class="w-full h-full object-cover rounded-xl" />
+                        <div class="monogram-frame w-32 h-32 mx-auto mb-6">
+                            <i data-lucide="flower-2" class="w-10 h-10 text-amber-500"></i>
                         </div>
                         <h3 class="font-serif-title text-2xl font-bold text-emerald-950">
                             Siti Fatimatuzzahro
@@ -407,6 +383,13 @@
                         </div>
                     </div>
 
+                    <p
+                        class="text-center text-xs text-emerald-200/80 max-w-lg mx-auto -mt-8 mb-12"
+                        data-aos="fade-up">
+                        Akad Nikah dan Resepsi diselenggarakan di lokasi yang berbeda. Silakan cek
+                        detail, peta, dan QR lokasi pada masing-masing kartu di bawah ini.
+                    </p>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                         <!-- RESEPSI CARD -->
                         <div
@@ -450,11 +433,32 @@
                                 </li>
                             </ul>
 
+                            <div class="grid grid-cols-2 gap-3 mb-3">
+                                <a
+                                    href="https://maps.app.goo.gl/xkYVn1mziyBSFoU1A"
+                                    target="_blank"
+                                    class="py-3 bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold rounded-xl text-center flex items-center justify-center gap-2 transition text-[11px] uppercase tracking-wider">
+                                    <i data-lucide="navigation" class="w-4 h-4"></i>
+                                    <span>Buka Maps</span>
+                                </a>
+                                <button
+                                    onclick="
+                                        openLightbox(
+                                            'assets/images/barcode_resepsi.png',
+                                            'QR Lokasi Resepsi'
+                                        )
+                                    "
+                                    class="py-3 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/50 text-amber-200 font-bold rounded-xl text-center flex items-center justify-center gap-2 transition text-[11px] uppercase tracking-wider">
+                                    <i data-lucide="qr-code" class="w-4 h-4"></i>
+                                    <span>Lihat QR</span>
+                                </button>
+                            </div>
+
                             <a
                                 id="btn-cal-resepsi"
                                 href="#"
                                 target="_blank"
-                                class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold rounded-xl text-center flex items-center justify-center gap-2 transition text-xs uppercase tracking-wider">
+                                class="w-full py-3 bg-emerald-900 hover:bg-emerald-800 border border-amber-400/30 text-amber-300 font-bold rounded-xl text-center flex items-center justify-center gap-2 transition text-xs uppercase tracking-wider">
                                 <i data-lucide="calendar-plus" class="w-4 h-4"></i>
                                 <span>Simpan Ke Google Calendar</span>
                             </a>
@@ -495,202 +499,70 @@
                                         data-lucide="map-pin"
                                         class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
                                     <span>
-                                        <strong>Kediaman Mempelai Wanita</strong>
+                                        <strong>Kp. Geblug RT.02 RW.01 Palasari</strong>
                                         <br />
-                                        Jl. Tapos LBC RT01/02 No.71 Citapen, Ciawi, Kab. Bogor
+                                        Kec. Cijeruk, Kabupaten Bogor, Jawa Barat 16740
                                     </span>
                                 </li>
                             </ul>
+
+                            <div class="grid grid-cols-2 gap-3 mb-3">
+                                <a
+                                    href="https://maps.app.goo.gl/3TQb1rGSsThyK83H7"
+                                    target="_blank"
+                                    class="py-3 bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold rounded-xl text-center flex items-center justify-center gap-2 transition text-[11px] uppercase tracking-wider">
+                                    <i data-lucide="navigation" class="w-4 h-4"></i>
+                                    <span>Buka Maps</span>
+                                </a>
+                                <button
+                                    onclick="
+                                        openLightbox(
+                                            'assets/images/barcode_akad.png',
+                                            'QR Lokasi Akad Nikah'
+                                        )
+                                    "
+                                    class="py-3 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/50 text-amber-200 font-bold rounded-xl text-center flex items-center justify-center gap-2 transition text-[11px] uppercase tracking-wider">
+                                    <i data-lucide="qr-code" class="w-4 h-4"></i>
+                                    <span>Lihat QR</span>
+                                </button>
+                            </div>
 
                             <a
                                 id="btn-cal-akad"
                                 href="#"
                                 target="_blank"
-                                class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-emerald-950 font-bold rounded-xl text-center flex items-center justify-center gap-2 transition text-xs uppercase tracking-wider">
+                                class="w-full py-3 bg-emerald-900 hover:bg-emerald-800 border border-amber-400/30 text-amber-300 font-bold rounded-xl text-center flex items-center justify-center gap-2 transition text-xs uppercase tracking-wider">
                                 <i data-lucide="calendar-plus" class="w-4 h-4"></i>
                                 <span>Simpan Ke Google Calendar</span>
                             </a>
                         </div>
                     </div>
 
-                    <!-- GOOGLE MAPS EMBED & QR CODE -->
+                    <!-- MAP PREVIEW: AKAD NIKAH LOCATION -->
                     <div class="glass-card-dark p-6 sm:p-8 rounded-3xl" data-aos="fade-up">
-                        <div
-                            class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div class="flex items-start gap-3 mb-6">
+                            <i
+                                data-lucide="map"
+                                class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
                             <div>
                                 <h4 class="font-serif-title text-xl font-bold text-amber-200">
-                                    Petunjuk Peta & QR Lokasi
+                                    Peta Lokasi Akad Nikah
                                 </h4>
                                 <p class="text-xs text-emerald-200 mt-1">
-                                    Jl. Tapos LBC RT01/02 No.71 Citapen, Ciawi, Kab. Bogor
+                                    Masjid Al Ahyar Palasari, Kec. Cijeruk, Kabupaten Bogor, Jawa
+                                    Barat 16740
                                 </p>
                             </div>
-                            <a
-                                href="https://maps.app.goo.gl/xkYVn1mziyBSFoU1A"
-                                target="_blank"
-                                class="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-emerald-950 rounded-full text-xs font-bold flex items-center gap-2 transition shadow-lg">
-                                <i data-lucide="navigation" class="w-4 h-4"></i>
-                                <span>Buka Google Maps</span>
-                            </a>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                            <!-- QR Code Location Image -->
-                            <div
-                                class="flex flex-col items-center justify-center p-5 bg-emerald-900/60 rounded-2xl border border-amber-400/30 text-center shadow-inner">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <i data-lucide="qr-code" class="w-5 h-5 text-amber-400"></i>
-                                    <span
-                                        class="text-xs font-bold text-amber-200 uppercase tracking-wider">
-                                        Scan QR Barcode
-                                    </span>
-                                </div>
-
-                                <div
-                                    class="luxury-image-frame p-2 bg-white rounded-2xl w-48 h-48 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform"
-                                    onclick="openLightbox('assets/images/barcode_location.png')"
-                                    title="Klik untuk memperbesar QR Code">
-                                    <img
-                                        src="assets/images/barcode_location.png"
-                                        alt="QR Barcode Lokasi Acara"
-                                        class="w-full h-full object-contain" />
-                                </div>
-
-                                <p class="text-[11px] text-emerald-200/80 mt-3 italic">
-                                    *Klik QR Code untuk memperbesar
-                                </p>
-                            </div>
-
-                            <!-- Map Embed -->
-                            <div
-                                class="md:col-span-2 w-full h-72 sm:h-80 rounded-2xl overflow-hidden border border-emerald-700/50 shadow-lg">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.7760330366624!2d106.8770!3d-6.6800!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNDAnNDguMCJTIDEwNMKwNTInMzcuMiJF!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
-                                    class="w-full h-full border-0 filter grayscale contrast-125 opacity-90 hover:filter-none transition duration-500"
-                                    allowfullscreen=""
-                                    loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- GALERI & LOVE STORY SECTION -->
-            <section id="galeri" class="py-24 px-4 max-w-6xl mx-auto">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <p
-                        class="text-amber-600 uppercase text-xs tracking-[0.25em] font-semibold mb-2">
-                        Momen Bahagia
-                    </p>
-                    <h2 class="font-serif-title text-3xl sm:text-5xl text-emerald-900 font-bold">
-                        Galeri Foto
-                    </h2>
-                    <div class="ornament-line mt-4">
-                        <i data-lucide="camera" class="w-4 h-4 text-amber-600"></i>
-                    </div>
-                </div>
-
-                <!-- GALLERY GRID -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-20">
-                    <div
-                        class="group relative h-72 rounded-2xl overflow-hidden shadow-lg cursor-pointer luxury-image-frame"
-                        data-aos="zoom-in"
-                        onclick="openLightbox('assets/images/hero_couple.png')">
-                        <img
-                            src="assets/images/hero_couple.png"
-                            alt="Momen 1"
-                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
                         <div
-                            class="absolute inset-0 bg-emerald-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                            <i data-lucide="maximize-2" class="w-8 h-8 text-amber-300"></i>
-                        </div>
-                    </div>
-                    <div
-                        class="group relative h-72 rounded-2xl overflow-hidden shadow-lg cursor-pointer luxury-image-frame"
-                        data-aos="zoom-in"
-                        data-aos-delay="100"
-                        onclick="openLightbox('assets/images/groom_profile.png')">
-                        <img
-                            src="assets/images/groom_profile.png"
-                            alt="Momen 2"
-                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-                        <div
-                            class="absolute inset-0 bg-emerald-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                            <i data-lucide="maximize-2" class="w-8 h-8 text-amber-300"></i>
-                        </div>
-                    </div>
-                    <div
-                        class="group relative h-72 rounded-2xl overflow-hidden shadow-lg cursor-pointer luxury-image-frame"
-                        data-aos="zoom-in"
-                        data-aos-delay="200"
-                        onclick="openLightbox('assets/images/bride_profile.png')">
-                        <img
-                            src="assets/images/bride_profile.png"
-                            alt="Momen 3"
-                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-                        <div
-                            class="absolute inset-0 bg-emerald-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                            <i data-lucide="maximize-2" class="w-8 h-8 text-amber-300"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- LOVE STORY TIMELINE -->
-                <div class="max-w-3xl mx-auto">
-                    <h3
-                        class="font-serif-title text-2xl font-bold text-center text-emerald-900 mb-10"
-                        data-aos="fade-up">
-                        Kisah Cinta Kami
-                    </h3>
-
-                    <div class="relative border-l-2 border-amber-500/40 ml-4 sm:ml-32 space-y-10">
-                        <div class="relative pl-8" data-aos="fade-left">
-                            <div
-                                class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-amber-500 border-4 border-white shadow"></div>
-                            <span
-                                class="text-xs font-semibold text-amber-700 uppercase tracking-widest block mb-1">
-                                Januari 2023
-                            </span>
-                            <h4 class="font-serif-title text-lg font-bold text-emerald-950">
-                                Awal Pertemuan
-                            </h4>
-                            <p class="text-xs text-slate-600 leading-relaxed mt-1">
-                                Pertama kali saling mengenal saat terlibat dalam satu proyek
-                                kemanusiaan di Jakarta.
-                            </p>
-                        </div>
-
-                        <div class="relative pl-8" data-aos="fade-left" data-aos-delay="100">
-                            <div
-                                class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-amber-500 border-4 border-white shadow"></div>
-                            <span
-                                class="text-xs font-semibold text-amber-700 uppercase tracking-widest block mb-1">
-                                Maret 2025
-                            </span>
-                            <h4 class="font-serif-title text-lg font-bold text-emerald-950">
-                                Lamaran &amp; Khitbah
-                            </h4>
-                            <p class="text-xs text-slate-600 leading-relaxed mt-1">
-                                Momen sakral saat kedua keluarga besar bertemu untuk melangsungkan
-                                lamaran resmi.
-                            </p>
-                        </div>
-
-                        <div class="relative pl-8" data-aos="fade-left" data-aos-delay="200">
-                            <div
-                                class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-amber-500 border-4 border-white shadow"></div>
-                            <span
-                                class="text-xs font-semibold text-amber-700 uppercase tracking-widest block mb-1">
-                                September 2026
-                            </span>
-                            <h4 class="font-serif-title text-lg font-bold text-emerald-950">
-                                Menuju Pelaminan
-                            </h4>
-                            <p class="text-xs text-slate-600 leading-relaxed mt-1">
-                                Mengikat janji suci pernikahan untuk melangkah bersama mengarungi
-                                ikatan suci selamanya.
-                            </p>
+                            class="w-full h-72 sm:h-80 rounded-2xl overflow-hidden border border-emerald-700/50 shadow-lg">
+                            <iframe
+                                src="https://www.google.com/maps?q=Masjid+Al+Ahyar+Palasari,+Cijeruk,+Kabupaten+Bogor,+Jawa+Barat&output=embed"
+                                class="w-full h-full border-0 filter grayscale contrast-125 opacity-90 hover:filter-none transition duration-500"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
@@ -727,26 +599,26 @@
                                 <i data-lucide="credit-card" class="w-6 h-6"></i>
                             </div>
                             <h3 class="font-serif-title text-xl font-bold text-amber-200">
-                                Bank BCA
+                                Bank BRI
                             </h3>
                             <p class="text-xs text-emerald-300 mt-1 mb-4">
-                                a.n. Muhammad Faiz Nur Furqoni
+                                a.n. Muhamad Faiz Nur Furqoni
                             </p>
 
                             <div
                                 class="bg-emerald-900/80 p-3 rounded-xl border border-emerald-700 mb-4 flex items-center justify-between">
                                 <span
                                     class="font-mono text-base tracking-wider font-bold text-white">
-                                    1234 5678 9012
+                                    0913 0106 8893 539
                                 </span>
                                 <button
-                                    onclick="copyToClipboard('123456789012', 'Nomor Rekening BCA')"
+                                    onclick="copyToClipboard('091301068893539', 'Nomor Rekening BRI')"
                                     class="p-2 text-amber-400 hover:text-amber-300 transition">
                                     <i data-lucide="copy" class="w-4 h-4"></i>
                                 </button>
                             </div>
                             <button
-                                onclick="copyToClipboard('123456789012', 'Nomor Rekening BCA')"
+                                onclick="copyToClipboard('091301068893539', 'Nomor Rekening BRI')"
                                 class="w-full py-2.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/50 text-amber-300 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-2">
                                 <i data-lucide="copy" class="w-4 h-4"></i>
                                 <span>Salin Nomor Rekening</span>
@@ -763,7 +635,7 @@
                                 <i data-lucide="credit-card" class="w-6 h-6"></i>
                             </div>
                             <h3 class="font-serif-title text-xl font-bold text-amber-200">
-                                Bank Mandiri
+                                Dana
                             </h3>
                             <p class="text-xs text-emerald-300 mt-1 mb-4">
                                 a.n. Siti Fatimatuzzahro
@@ -773,18 +645,18 @@
                                 class="bg-emerald-900/80 p-3 rounded-xl border border-emerald-700 mb-4 flex items-center justify-between">
                                 <span
                                     class="font-mono text-base tracking-wider font-bold text-white">
-                                    9876 5432 1098
+                                    0858 8911 2344
                                 </span>
                                 <button
                                     onclick="
-                                        copyToClipboard('987654321098', 'Nomor Rekening Mandiri')
+                                        copyToClipboard('085889112344', 'Nomor Rekening Dana')
                                     "
                                     class="p-2 text-amber-400 hover:text-amber-300 transition">
                                     <i data-lucide="copy" class="w-4 h-4"></i>
                                 </button>
                             </div>
                             <button
-                                onclick="copyToClipboard('987654321098', 'Nomor Rekening Mandiri')"
+                                onclick="copyToClipboard('085889112344', 'Nomor Rekening Dana')"
                                 class="w-full py-2.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/50 text-amber-300 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-2">
                                 <i data-lucide="copy" class="w-4 h-4"></i>
                                 <span>Salin Nomor Rekening</span>
@@ -1055,11 +927,16 @@
                     class="absolute -top-10 right-0 text-white hover:text-amber-400 transition">
                     <i data-lucide="x" class="w-8 h-8"></i>
                 </button>
-                <img
-                    id="lightbox-img"
-                    src=""
-                    alt="Enlarged gallery photo"
-                    class="max-w-full max-h-[85vh] rounded-2xl border-2 border-amber-400/40 shadow-2xl object-contain" />
+                <div class="bg-white p-4 sm:p-6 rounded-2xl border-2 border-amber-400/40 shadow-2xl">
+                    <img
+                        id="lightbox-img"
+                        src=""
+                        alt="Enlarged photo"
+                        class="max-w-full max-h-[70vh] mx-auto object-contain" />
+                    <p
+                        id="lightbox-caption"
+                        class="hidden text-center text-emerald-950 text-sm font-semibold mt-4"></p>
+                </div>
             </div>
         </div>
 
